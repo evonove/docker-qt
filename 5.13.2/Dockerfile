@@ -1,7 +1,5 @@
 FROM ubuntu:19.10
 
-COPY docker-entrypoint.sh /usr/local/bin/
-
 # Install sudo
 RUN apt-get update -y \
  && apt-get install -y --no-install-recommends \
@@ -32,4 +30,5 @@ ENV XVFB_RES="${RESOLUTION}"
 ARG XARGS=""
 ENV XVFB_ARGS="${XARGS}"
 
+COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
