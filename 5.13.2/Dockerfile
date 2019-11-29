@@ -1,5 +1,7 @@
 FROM ubuntu:19.10
 
+COPY docker-entrypoint.sh /usr/local/bin/
+
 # Install sudo
 RUN apt-get update -y \
  && apt-get install -y --no-install-recommends \
@@ -25,11 +27,9 @@ RUN /Tools/QtCreator/bin/qbs setup-qt /5.13.2/gcc_64/bin/qmake qt-5-13-2
 ENV QBS_COMMAND="/Tools/QtCreator/bin/qbs"
 ENV QMAKE_COMMAND="/5.13.2/gcc_64/bin/qmake"
 
-COPY startup.sh .
-
 ARG RESOLUTION="1920x1080x24"
 ENV XVFB_RES="${RESOLUTION}"
 ARG XARGS=""
 ENV XVFB_ARGS="${XARGS}"
 
-ENTRYPOINT ["/bin/bash", "/startup.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
