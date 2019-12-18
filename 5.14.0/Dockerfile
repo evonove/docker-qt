@@ -16,6 +16,7 @@ RUN apt-get update -y \
 
 # Setup Variables
 ENV QT_VERSION="5.14.0"
+ENV QBS_PROFILE="qt-5-14-0"
 ENV QT_CREATOR_VERSION="4.11.0-0"
 
 # Install and setup Qt
@@ -24,7 +25,7 @@ RUN aqt install ${QT_VERSION} linux desktop
 RUN aqt tool linux tools_qtcreator ${QT_CREATOR_VERSION} qt.tools.qtcreator
 
 RUN /Tools/QtCreator/bin/qbs setup-toolchains --detect
-RUN /Tools/QtCreator/bin/qbs setup-qt /${QT_VERSION}/gcc_64/bin/qmake qt-${QT_VERSION//./-}
+RUN /Tools/QtCreator/bin/qbs setup-qt /${QT_VERSION}/gcc_64/bin/qmake ${QBS_PROFILE}
 
 ENV QBS_COMMAND="/Tools/QtCreator/bin/qbs"
 ENV QMAKE_COMMAND="/${QT_VERSION}/gcc_64/bin/qmake"
